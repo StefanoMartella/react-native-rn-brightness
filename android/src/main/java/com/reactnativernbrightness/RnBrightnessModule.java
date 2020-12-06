@@ -19,7 +19,7 @@ public class RnBrightnessModule extends ReactContextBaseJavaModule {
   @NonNull
   @Override
   public String getName() {
-    return "RnBrightness";
+    return "RNBrightness";
   }
 
   @ReactMethod

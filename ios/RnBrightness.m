@@ -2,7 +2,7 @@
 
 @implementation RnBrightness
 
-RCT_EXPORT_MODULE();
+RCT_EXPORT_MODULE(RNBrightness);
 
 + (BOOL)requiresMainQueueSetup
 {
