@@ -1,59 +1,40 @@
 buildscript {
-  // Buildscript is evaluated before everything else so we can't use getExtOrDefault
-  def kotlin_version = rootProject.ext.has('kotlinVersion') ? rootProject.ext.get('kotlinVersion') : project.properties['RnBrightness_kotlinVersion']
-
   repositories {
-    google()
     jcenter()
+    google()
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:3.2.1'
-    // noinspection DifferentKotlinGradleVersion
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    classpath 'com.android.tools.build:gradle:3.6.2'
   }
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-
-def getExtOrDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['RnBrightness_' + name]
-}
-
-def getExtOrIntegerDefault(name) {
-  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties['RnBrightness_' + name]).toInteger()
-}
 
 android {
-  compileSdkVersion getExtOrIntegerDefault('compileSdkVersion')
-  buildToolsVersion getExtOrDefault('buildToolsVersion')
+  compileSdkVersion 29
+  buildToolsVersion "28.0.3"
+
   defaultConfig {
-    minSdkVersion 16
-    targetSdkVersion getExtOrIntegerDefault('targetSdkVersion')
+    minSdkVersion 17
+    targetSdkVersion 29
     versionCode 1
     versionName "1.0"
-    
   }
-  
   buildTypes {
     release {
       minifyEnabled false
     }
   }
-  lintOptions {
-    disable 'GradleCompatible'
-  }
-  compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
-  }
 }
 
 repositories {
-  mavenCentral()
-  jcenter()
   google()
+  jcenter()
+  mavenCentral()
+  maven {
+    url 'http://tokbox.bintray.com/maven/'
+  }
 
   def found = false
   def defaultDir = null
@@ -121,10 +102,13 @@ repositories {
   }
 }
 
-def kotlin_version = getExtOrDefault('kotlinVersion')
-
 dependencies {
-  // noinspection GradleDynamicVersion
-  api 'com.facebook.react:react-native:+'
-  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'com.facebook.react:react-native:+'
+}
+
+allprojects {
+  repositories {
+    google()
+    jcenter()
+  }
 }

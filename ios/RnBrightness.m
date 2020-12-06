@@ -2,18 +2,31 @@
 
 @implementation RnBrightness
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE();
 
-// Example method
-// See // https://facebook.github.io/react-native/docs/native-modules-ios
-RCT_REMAP_METHOD(multiply,
-                 multiplyWithA:(nonnull NSNumber*)a withB:(nonnull NSNumber*)b
-                 withResolver:(RCTPromiseResolveBlock)resolve
-                 withRejecter:(RCTPromiseRejectBlock)reject)
++ (BOOL)requiresMainQueueSetup
 {
-  NSNumber *result = @([a floatValue] * [b floatValue]);
+    return NO;
+}
 
-  resolve(result);
+- (dispatch_queue_t)methodQueue
+{
+    return dispatch_get_main_queue();
+}
+
+RCT_EXPORT_METHOD(getBrightness:(RCTPromiseResolveBlock)resolve
+                  getScreenBrightnessRejector:(RCTPromiseRejectBlock)reject) {
+
+    float brightness = [[UIScreen mainScreen] brightness];
+    resolve(@(brightness));
+}
+
+RCT_REMAP_METHOD(setBrightness,
+                 brightnessLevel:(CGFloat)brightnessLevel
+                 setSystemBrightnessResolver:(RCTPromiseResolveBlock)resolve
+                 setSystemBrightnessRejector:(RCTPromiseRejectBlock)reject) {
+    [[UIScreen mainScreen] setBrightness:brightnessLevel];
+    resolve(@(brightnessLevel));
 }
 
 @end

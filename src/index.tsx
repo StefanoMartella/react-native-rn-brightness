@@ -1,7 +1,8 @@
 import { NativeModules } from 'react-native';
 
 type RnBrightnessType = {
-  multiply(a: number, b: number): Promise<number>;
+  getBrightness(): Promise<number>;
+  setBrightness(brightnessLevel: number): void;
 };
 
 const { RnBrightness } = NativeModules;
