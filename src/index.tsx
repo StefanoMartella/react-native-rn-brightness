@@ -1,10 +1,10 @@
 import { NativeModules } from 'react-native';
 
-type RnBrightnessType = {
+type RNBrightnessType = {
   getBrightness(): Promise<number>;
   setBrightness(brightnessLevel: number): void;
 };
 
-const { RnBrightness } = NativeModules;
+const { RNBrightness } = NativeModules;
 
-export default RnBrightness as RnBrightnessType;
+export default RNBrightness as RNBrightnessType;
