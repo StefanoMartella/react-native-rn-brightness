@@ -1,4 +1,4 @@
-import { NativeModules } from 'react-native';
+import { NativeModules, Platform } from 'react-native';
 
 type RNBrightnessType = {
   getBrightness(): Promise<number>;
@@ -7,4 +7,14 @@ type RNBrightnessType = {
 
 const { RNBrightness } = NativeModules;
 
-export default RNBrightness as RNBrightnessType;
+export default {
+  setBrightness(brightnessLevel: number): void {
+    if (brightnessLevel < 0 || brightnessLevel > 1) {
+      if (!(Platform.OS === 'android' && brightnessLevel === -1)) {
+        throw Error('BrightnessLevel value must betweens 0 to 1');
+      }
+    }
+    RNBrightness.setBrightness(brightnessLevel);
+  },
+  getBrightness: RNBrightness.getBrightness,
+} as RNBrightnessType;
