@@ -2,7 +2,7 @@ import { NativeModules, Platform } from 'react-native';
 
 type RNBrightnessType = {
   getBrightness(): Promise<number>;
-  setBrightness(brightnessLevel: number): void;
+  setBrightness(brightnessLevel: number): Promise<void>;
 };
 
 const { RNBrightness } = NativeModules;

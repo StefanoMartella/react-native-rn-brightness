@@ -29,7 +29,7 @@ public class RnBrightnessModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void setBrightness(final float brightnessLevel) {
+  public void setBrightness(final float brightnessLevel, final Promise promise) {
     final Activity activity = getCurrentActivity();
 
     if (activity == null) {
@@ -42,6 +42,7 @@ public class RnBrightnessModule extends ReactContextBaseJavaModule {
         WindowManager.LayoutParams layoutParams = activity.getWindow().getAttributes();
         layoutParams.screenBrightness = brightnessLevel;
         activity.getWindow().setAttributes(layoutParams);
+        promise.resolve(null);
       }
     });
   }
